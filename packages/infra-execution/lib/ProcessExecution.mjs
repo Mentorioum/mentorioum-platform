@@ -31,8 +31,11 @@ export class ProcessExecution extends LifecycleExecution {
   attachAndStart() {
     this.#process.on('SIGTERM', this.#gracefulShutdown);
     this.#process.on('SIGINT', this.#gracefulShutdown);
-
-    // TODO: #1 Add Proper exit for pino 'http://getpino.io/#/docs/help?id=exit-logging'
+    /**
+     * @todo #1:30m/DEV Exit logging Pino
+     *  follow 'http://getpino.io/#/docs/help?id=exit-logging'
+     *
+     */
     this.#process.on('unhandledRejection', error => {
       this.#logger.fatal({
         type  : 'UnhandledRejection',

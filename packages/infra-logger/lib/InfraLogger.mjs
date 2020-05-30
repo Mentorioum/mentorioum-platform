@@ -1,7 +1,12 @@
 import pino from 'pino'
 import {Logger} from "@mentorioum/core-infra";
 
-// TODO: #1 Experiment with sending logs to https://github.com/pinojs/pino-elasticsearch
+/**
+ * @todo #1:45m/DEV Experimenting to send logs in elastic search
+ *  look in https://github.com/pinojs/pino-elasticsearch,
+ *  write you findings
+ *
+ */
 
 export class InfraLogger extends Logger {
 

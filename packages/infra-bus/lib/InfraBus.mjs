@@ -43,9 +43,10 @@ export class InfraBus extends Bus {
   }
 
   async subscribe(messages, command) {
-    // TODO: #1 Add separation by message pattern, like router url
-    // leave a wat to use topic original API + expose Variables
-    // constructor so subscriber no need to import camunda package
+    /**
+     * @todo #1:45m/DEV Add separation by message pattern, like router url
+     *  leave a wat to use topic original API + expose Variables
+     */
 
     const delegate = new TopicDelegateCommand(command, this.#log)
     return this.#client.subscribe(messages, async topic => {
