@@ -1,0 +1,19 @@
+{
+  "name": "@mentorioum/support-test",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "bin": {
+    "support-test-runner": "bin/index.mjs"
+  },
+  "scripts": {
+    "clean": "yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules"
+  },
+  "dependencies": {
+    "@types/yargs": "^15.0.4",
+    "ava": "^3.8.2",
+    "c8": "^7.1.2",
+    "yargs": "^15.3.1"
+  }
+}

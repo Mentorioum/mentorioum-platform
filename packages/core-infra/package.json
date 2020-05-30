@@ -1,0 +1,13 @@
+{
+  "name": "@mentorioum/core-infra",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "dependencies": {
+    "@mentorioum/core-error": "1.0.0"
+  },
+  "scripts": {
+    "clean": "yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules"
+  }
+}

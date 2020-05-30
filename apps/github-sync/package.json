@@ -1,0 +1,23 @@
+{
+  "name": "@mentorioum/github-sync",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "dependencies": {
+    "@mentorioum/infra-execution": "1.0.0",
+    "@mentorioum/access-github": "1.0.0"
+  },
+  "devDependencies": {
+    "@mentorioum/support-test": "1.0.0"
+  },
+  "scripts": {
+    "start": "node --experimental-modules --es-module-specifier-resolution=node .",
+    "start:debug": "nodemon --watch ../../packages --watch ./lib --experimental-modules --es-module-specifier-resolution=node --inspect .",
+    "start:dev": "nodemon --watch ../../packages --watch ./lib --experimental-modules --es-module-specifier-resolution=node .",
+    "test": "support-test-runner",
+    "test:watch": "support-test-runner --watch",
+    "test:coverage": "support-test-runner --coverage",
+    "clean": "yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules"
+  }
+}

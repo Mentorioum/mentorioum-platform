@@ -1,0 +1,27 @@
+{
+  "name": "mentorium-education-collaboration",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "apps/index.mjs",
+  "author": "nesterone",
+  "scripts": {
+    "start:infra-env": "docker-compose up",
+    "test": "lerna run test --stream",
+    "test:parallel": "lerna run test --parallel",
+    "pkg:create": "support-packages --parent=./packages/",
+    "clean": "lerna run clean --parallel && yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules",
+    "reset": "yarn run clean && yarn install"
+  },
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.20.2",
+    "nodemon": "^2.0.3",
+    "rimraf": "^3.0.2"
+  }
+}

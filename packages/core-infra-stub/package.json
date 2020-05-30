@@ -1,0 +1,17 @@
+{
+  "name": "@mentorioum/core-infra-stub",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "dependencies": {
+    "@mentorioum/core-infra": "1.0.0",
+    "sinon": "^9.0.2"
+  },
+  "devDependencies": {
+    "@mentorioum/support-test": "1.0.0"
+  },
+  "scripts": {
+    "clean": "yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@mentorioum/infra-config",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "dependencies": {
+    "@mentorioum/utils-fs": "1.0.0",
+    "confme": "^1.0.0",
+    "lodash.clonedeep": "^4.5.0",
+    "livr": "^2.2.4",
+    "livr-extra-rules": "^1.2.1"
+  },
+  "devDependencies": {
+    "@mentorioum/support-test": "1.0.0"
+  },
+  "scripts": {
+    "test": "support-test-runner",
+    "test:watch": "support-test-runner --watch",
+    "test:coverage": "support-test-runner --coverage",
+    "clean": "yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules"
+  }
+}

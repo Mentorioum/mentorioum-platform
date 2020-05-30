@@ -1,0 +1,12 @@
+{
+  "githubSync": ["required", {"nested_object":  {
+    "token": ["required", "string"],
+    "notification": ["required", {"nested_object":  {
+      "wakeUpInterval": ["required", "positive_integer"]
+    }}]
+  }}],
+  "workflow": ["required", {"nested_object": {
+      "baseUrl": ["required", "url"],
+      "asyncResponseTimeout": ["required", "positive_integer"]
+  }}]
+}

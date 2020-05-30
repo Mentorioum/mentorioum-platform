@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1e7tw0k" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.7.1">
+  <bpmn:process id="Process_1klrzxv" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Each Minute">
+      <bpmn:outgoing>Flow_0104zam</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_19pdr7h">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0/1 * * * ?</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0104zam" sourceRef="StartEvent_1" targetRef="Activity_1s1bai8" />
+    <bpmn:serviceTask id="Activity_1s1bai8" name="Fetch Github Notifications" camunda:type="external" camunda:topic="services://github-sync/read-notifications">
+      <bpmn:incoming>Flow_0104zam</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vpwfez</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1w3kovk" name="Transform Notification to System Events" camunda:type="external" camunda:topic="services://github-sync/transform-github-updates-to-events">
+      <bpmn:incoming>Flow_091llw1</bpmn:incoming>
+      <bpmn:outgoing>Flow_1k8geiz</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_03vsx4n" name="Any Updates ?">
+      <bpmn:incoming>Flow_0vpwfez</bpmn:incoming>
+      <bpmn:outgoing>Flow_091llw1</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0tukk3s</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0vpwfez" sourceRef="Activity_1s1bai8" targetRef="Gateway_03vsx4n" />
+    <bpmn:sequenceFlow id="Flow_091llw1" name="Yes" sourceRef="Gateway_03vsx4n" targetRef="Activity_1w3kovk">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">{isUpdates}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_118k5y4">
+      <bpmn:incoming>Flow_0tukk3s</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0tukk3s" name="No" sourceRef="Gateway_03vsx4n" targetRef="Event_118k5y4" />
+    <bpmn:sequenceFlow id="Flow_1k8geiz" sourceRef="Activity_1w3kovk" targetRef="Activity_042pxsc" />
+    <bpmn:sequenceFlow id="Flow_1f50oyn" sourceRef="Activity_042pxsc" targetRef="Event_1p61ozz" />
+    <bpmn:serviceTask id="Activity_042pxsc" name="Push System Events to Queque" camunda:type="external" camunda:topic="services://github-sync/transform-github-updates-to-events">
+      <bpmn:incoming>Flow_1k8geiz</bpmn:incoming>
+      <bpmn:outgoing>Flow_1f50oyn</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_1p61ozz" name="Publish System Event">
+      <bpmn:incoming>Flow_1f50oyn</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0oh94fy" camunda:type="external" camunda:topic="" />
+    </bpmn:endEvent>
+    <bpmn:textAnnotation id="TextAnnotation_0zu32hz">
+      <bpmn:text>It may be not a message bus but mesages by camunda to external service</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0unl4uf" sourceRef="Activity_042pxsc" targetRef="TextAnnotation_0zu32hz" />
+    <bpmn:textAnnotation id="TextAnnotation_0yxoksw">
+      <bpmn:text>At least Filter and then transform</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1wq40kn" sourceRef="Activity_1w3kovk" targetRef="TextAnnotation_0yxoksw" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1klrzxv">
+      <bpmndi:BPMNShape id="TextAnnotation_0yxoksw_di" bpmnElement="TextAnnotation_0yxoksw">
+        <dc:Bounds x="610" y="80" width="99.99156545209178" height="52.631578947368425" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0zu32hz_di" bpmnElement="TextAnnotation_0zu32hz">
+        <dc:Bounds x="920" y="80" width="99.99156545209178" height="79.6221322537112" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0104zam_di" bpmnElement="Flow_0104zam">
+        <di:waypoint x="208" y="420" />
+        <di:waypoint x="340" y="420" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vpwfez_di" bpmnElement="Flow_0vpwfez">
+        <di:waypoint x="440" y="420" />
+        <di:waypoint x="575" y="420" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_091llw1_di" bpmnElement="Flow_091llw1">
+        <di:waypoint x="600" y="395" />
+        <di:waypoint x="600" y="290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="607" y="340" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tukk3s_di" bpmnElement="Flow_0tukk3s">
+        <di:waypoint x="625" y="420" />
+        <di:waypoint x="922" y="420" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="766" y="402" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1k8geiz_di" bpmnElement="Flow_1k8geiz">
+        <di:waypoint x="650" y="250" />
+        <di:waypoint x="740" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1f50oyn_di" bpmnElement="Flow_1f50oyn">
+        <di:waypoint x="840" y="250" />
+        <di:waypoint x="922" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_05djhgo_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="172" y="402" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="159" y="445" width="62" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1sx8e5b_di" bpmnElement="Activity_1w3kovk">
+        <dc:Bounds x="550" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_03vsx4n_di" bpmnElement="Gateway_03vsx4n" isMarkerVisible="true">
+        <dc:Bounds x="575" y="395" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="565" y="452" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_04c3d9s_di" bpmnElement="Activity_042pxsc">
+        <dc:Bounds x="740" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_118k5y4_di" bpmnElement="Event_118k5y4">
+        <dc:Bounds x="922" y="402" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="810" y="215" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0f54xdd_di" bpmnElement="Activity_1s1bai8">
+        <dc:Bounds x="340" y="380" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0fftafr_di" bpmnElement="Event_1p61ozz">
+        <dc:Bounds x="922" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="903" y="275" width="76" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1wq40kn_di" bpmnElement="Association_1wq40kn">
+        <di:waypoint x="617" y="210" />
+        <di:waypoint x="649" y="133" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0unl4uf_di" bpmnElement="Association_0unl4uf">
+        <di:waypoint x="839" y="215" />
+        <di:waypoint x="920" y="156" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

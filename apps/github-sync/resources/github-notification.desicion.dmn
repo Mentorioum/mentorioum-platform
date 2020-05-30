@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_00vttly" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.7.1">
+  <decision id="GithubNotificationDecision" name="Github Notification Desision">
+    <extensionElements>
+      <biodi:bounds x="150" y="150" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
+      <input id="InputClause_1s6l2yk" label="Subject Type">
+        <inputExpression id="LiteralExpression_009vc3w" typeRef="string" expressionLanguage="javascript">
+          <text>JSON.parse(notification).subject.type</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1xm9dsz">
+          <text>""</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_07h6elo" label="Reason">
+        <inputExpression id="LiteralExpression_1h8r6hs" typeRef="string" expressionLanguage="javascript">
+          <text>JSON.parse(notification).reason</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Action" name="action" typeRef="string" />
+      <rule id="DecisionRule_034lv2s">
+        <description>Requestion for Instruction execution</description>
+        <inputEntry id="UnaryTests_10vqajp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1619q32">
+          <text>"assign"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_131kbo1">
+          <text>"AnalizeInstruction"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wo481z">
+        <description>Invitation for collaboration</description>
+        <inputEntry id="UnaryTests_16iswh3">
+          <text>"RepositoryInvitation"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0oamzni">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0i6p12j">
+          <text>"AcceptInvitation"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1hdu40j">
+        <description>Any changes in issues, just say hello</description>
+        <inputEntry id="UnaryTests_00rofwy">
+          <text>"Issue"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bj3hwz">
+          <text>"comment"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0r2xd8s">
+          <text>"SayHello"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mqlq8h">
+        <inputEntry id="UnaryTests_073crzz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pbbm23">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1alzhd6">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

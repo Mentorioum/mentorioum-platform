@@ -1,0 +1,12 @@
+{
+  "githubSync": {
+    "token": "{{GITHUB_TOKEN}}",
+    "notification": {
+      "wakeUpInterval": "{{GITHUB_SYNC_WAKE_UP_INTERVAL}}"
+    }
+  },
+  "workflow": {
+    "baseUrl": "{{CAMUNDA_BASE_URL_REST_API}}",
+    "asyncResponseTimeout": "{{CAMUNDA_CLIENT_ASYNC_RESPONSE_TIMEOUT}}"
+  }
+}

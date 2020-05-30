@@ -1,0 +1,14 @@
+{
+  "name": "@mentorium/support-packages",
+  "version": "1.0.0",
+  "dependencies": {
+    "@types/yargs": "^15.0.4"
+  },
+  "bin": {
+    "support-packages": "bin/index.mjs"
+  },
+  "scripts": {
+    "clean": "yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules"
+  }
+}

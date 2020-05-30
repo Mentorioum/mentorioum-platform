@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1odjaf0" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.7.1">
+  <bpmn:process id="Process_1vcrdx7" isExecutable="true">
+    <bpmn:serviceTask id="Activity_1ts4bh6" name="Pick one Notification" camunda:type="external" camunda:topic="services://github-sync/pick-one">
+      <bpmn:incoming>Flow_0xtswbz</bpmn:incoming>
+      <bpmn:incoming>Flow_046sp1n</bpmn:incoming>
+      <bpmn:outgoing>Flow_1pgzvyu</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_04ev73y" name="Fetch New Notifications" camunda:type="external" camunda:topic="services://github-sync/generate-list">
+      <bpmn:incoming>Flow_0wizeeg</bpmn:incoming>
+      <bpmn:outgoing>Flow_0xtswbz</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0kdsd8q" name="End">
+      <bpmn:incoming>Flow_10spw9s</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="Gateway_1g4tmfp" default="Flow_10spw9s">
+      <bpmn:incoming>Flow_0ja3i0r</bpmn:incoming>
+      <bpmn:outgoing>Flow_046sp1n</bpmn:outgoing>
+      <bpmn:outgoing>Flow_10spw9s</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0xtswbz" sourceRef="Activity_04ev73y" targetRef="Activity_1ts4bh6" />
+    <bpmn:sequenceFlow id="Flow_046sp1n" name="Not Complete" sourceRef="Gateway_1g4tmfp" targetRef="Activity_1ts4bh6">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!completed}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_10spw9s" name="Completed" sourceRef="Gateway_1g4tmfp" targetRef="Event_0kdsd8q" />
+    <bpmn:sequenceFlow id="Flow_1pgzvyu" sourceRef="Activity_1ts4bh6" targetRef="Activity_11gd95d" />
+    <bpmn:sequenceFlow id="Flow_0ja3i0r" sourceRef="Activity_11gd95d" targetRef="Gateway_1g4tmfp" />
+    <bpmn:callActivity id="Activity_11gd95d" name="ManageNotification" calledElement="Process_1folxum">
+      <bpmn:extensionElements>
+        <camunda:in variables="all" />
+        <camunda:out variables="all" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1pgzvyu</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ja3i0r</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_0wizeeg" sourceRef="Event_17n4ni7" targetRef="Activity_04ev73y" />
+    <bpmn:startEvent id="Event_17n4ni7" name="Every Minute">
+      <bpmn:outgoing>Flow_0wizeeg</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:textAnnotation id="TextAnnotation_1em4b1y">
+      <bpmn:text>'New' it's not a concreet, what time we use for search (since???), What to do if process was stoped for some time</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1lrdsoq" sourceRef="Activity_04ev73y" targetRef="TextAnnotation_1em4b1y" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1vcrdx7">
+      <bpmndi:BPMNShape id="TextAnnotation_1em4b1y_di" bpmnElement="TextAnnotation_1em4b1y">
+        <dc:Bounds x="310" y="270" width="100" height="138" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0wizeeg_di" bpmnElement="Flow_0wizeeg">
+        <di:waypoint x="208" y="150" />
+        <di:waypoint x="330" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ja3i0r_di" bpmnElement="Flow_0ja3i0r">
+        <di:waypoint x="830" y="150" />
+        <di:waypoint x="985" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pgzvyu_di" bpmnElement="Flow_1pgzvyu">
+        <di:waypoint x="620" y="150" />
+        <di:waypoint x="730" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10spw9s_di" bpmnElement="Flow_10spw9s">
+        <di:waypoint x="1035" y="150" />
+        <di:waypoint x="1222" y="150" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="983" y="83" width="54" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_046sp1n_di" bpmnElement="Flow_046sp1n">
+        <di:waypoint x="1010" y="175" />
+        <di:waypoint x="1010" y="350" />
+        <di:waypoint x="570" y="350" />
+        <di:waypoint x="570" y="190" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="756" y="332" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xtswbz_di" bpmnElement="Flow_0xtswbz">
+        <di:waypoint x="430" y="150" />
+        <di:waypoint x="520" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_1ts4bh6_di" bpmnElement="Activity_1ts4bh6">
+        <dc:Bounds x="520" y="110" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_04ev73y_di" bpmnElement="Activity_04ev73y">
+        <dc:Bounds x="330" y="110" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0kdsd8q_di" bpmnElement="Event_0kdsd8q">
+        <dc:Bounds x="1222" y="132" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1230" y="175" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1g4tmfp_di" bpmnElement="Gateway_1g4tmfp" isMarkerVisible="true">
+        <dc:Bounds x="985" y="125" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_122cr5w_di" bpmnElement="Activity_11gd95d">
+        <dc:Bounds x="730" y="110" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1aa0pt1_di" bpmnElement="Event_17n4ni7">
+        <dc:Bounds x="172" y="132" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="159" y="175" width="65" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1lrdsoq_di" bpmnElement="Association_1lrdsoq">
+        <di:waypoint x="376" y="190" />
+        <di:waypoint x="367" y="270" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

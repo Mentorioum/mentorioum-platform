@@ -1,0 +1,24 @@
+{
+  "name": "@mentorioum/infra-logger",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "dependencies": {
+    "@mentorioum/core-infra": "1.0.0",
+    "@types/pino": "^6.0.0",
+    "debug": "^4.1.1",
+    "pino": "^6.2.1",
+    "pino-debug": "^1.3.0",
+    "pino-pretty": "^4.0.0"
+  },
+  "devDependencies": {
+    "@mentorioum/support-test": "1.0.0"
+  },
+  "scripts": {
+    "test": "support-test-runner",
+    "test:watch": "support-test-runner --watch",
+    "test:coverage": "support-test-runner --coverage",
+    "clean": "yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules"
+  }
+}

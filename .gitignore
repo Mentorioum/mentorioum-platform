@@ -1,0 +1,7 @@
+.idea/
+.nyc_output/
+node_modules/
+coverage/
+*.log
+ava.config.cjs
+.env
