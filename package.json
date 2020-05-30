@@ -1,11 +1,12 @@
 {
-  "name": "mentorium-education-collaboration",
+  "name": "mentorium-platform",
   "type": "module",
   "version": "1.0.0",
   "main": "apps/index.mjs",
   "author": "nesterone",
   "scripts": {
     "start:infra-env": "docker-compose up",
+    "start:dev": "lerna run start:dev --parallel",
     "test": "lerna run test --stream",
     "test:parallel": "lerna run test --parallel",
     "pkg:create": "support-packages --parent=./packages/",

@@ -12,6 +12,11 @@ export class NotificationAnalyzeInstructionCommand extends Command {
   async execute(options) {
     let { notification } = options;
 
+    /**
+     * @todo #11:55m/DEV Integrate instruction parser
+     *
+     */
+
     this.#log.info({notification}, 'Analyze Instructions !')
   }
 

@@ -2,10 +2,17 @@
 
 Mentorioum collaboration platform
 
+## Requirements
 
-Todo List:
+1. `docker` - 19.03.8
+2. `node` only starting from  14.x.x
+3. `yarn` - 1.22.4
 
-- Add commands for mark as read, say hello and print analyze instruction
-- Add readme for app with images for workflows
-- prep next tasks, configure with pddc approach and convert all todos to that format
-- add task for blog post about pkg approach
+## Installation
+
+Just run `yarn`
+
+## Starting App
+
+1. Run `docker-compose up`
+2. Run `yarn start:dev`

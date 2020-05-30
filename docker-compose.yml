@@ -1,8 +1,7 @@
 version: '3.3'
 
 services:
-  camunda:
+  workflow-engine:
     image: camunda/camunda-bpm-platform:latest
     restart: always
     ports: ['8055:8080']
-  minio:
