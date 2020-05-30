@@ -43,7 +43,7 @@ export class InfraBus extends Bus {
   }
 
   async subscribe(messages, command) {
-    // TODO: add separation by message pattern, like router url
+    // TODO: #1 Add separation by message pattern, like router url
     // leave a wat to use topic original API + expose Variables
     // constructor so subscriber no need to import camunda package
 

@@ -7,7 +7,7 @@ test.cb('should subscribe to simple task', t => {
 
   const logger = new StubLogger()
   const bus = new InfraBus({
-    // TODO: replace infra config
+    // TODO: #1 Replace infra config
     baseUrl: 'http://localhost:8055/engine-rest',
     asyncResponseTimeout: 1000
   },logger)

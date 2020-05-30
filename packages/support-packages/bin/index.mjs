@@ -5,12 +5,9 @@ import {dirname, join, resolve} from "path";
 import fs from "fs";
 import {fileURLToPath} from "url";
 
-
 const args = yargs
   .scriptName('support-packages')
   .argv
-
-// TODO: extends with app type, and copy configs there
 
 if(args.name && args.parent){
 

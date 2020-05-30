@@ -16,7 +16,7 @@ export class GithubNotificationAccess extends NotificationAccess {
 
   async findMany(options) {
     let response = await this.#octokit.activity.listNotificationsForAuthenticatedUser({
-      // TODO: extract to upper level, think about putting in process on start,
+      // TODO: #1 Extract to upper level, think about putting in process on start,
       // it good thing to pass as options
       per_page: 5,
       since: '2019-12-27T00:00:00Z',
