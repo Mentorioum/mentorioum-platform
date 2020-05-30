@@ -81,7 +81,7 @@ export class GithubSyncLifecycle extends Lifecycle {
 
   }
   async shutdown() {
-    // TODO: extrat to base class as generic method
+    // TODO: #1 - Extrat to base class as generic method
     this.#generateSubscription.unsubscribe()
     this.#printSubscription.unsubscribe()
   }
