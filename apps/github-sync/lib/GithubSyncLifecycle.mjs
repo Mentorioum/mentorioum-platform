@@ -80,6 +80,26 @@ export class GithubSyncLifecycle extends Lifecycle {
     )
 
   }
+
+  /**
+   * @todo #10:50m/DEV Provide Event declaration
+   *  handle subscribe/unsubscrbe in 'Manager' class
+   *
+   */
+
+  events () {
+    const sayHello = new GithubSayHelloCommand(this.#log)
+
+    return {
+      'services://github-sync/generate-list' : new NotificationFetchNewCommand(this.#notifications),
+      'services://utils/logger': sayHello,
+      'services://github-sync/pick-one': new NotificationPickOneCommand(this.#log),
+      'services://github-sync/greeting': sayHello,
+      'services://github-sync/mark-as-read': new NotificationMarkAsReadCommand(this.#log),
+      'services://github-sync/analyze-instructions': new NotificationAnalyzeInstructionCommand(this.#log)
+    }
+  }
+
   async shutdown() {
     // TODO: #1 Extrat to base class as generic method
     this.#generateSubscription.unsubscribe()
