@@ -16,3 +16,7 @@ Just run `yarn`
 
 1. Run `docker-compose up`
 2. Run `yarn start:dev`
+
+## Apps
+
+1. [Github Sync](./apps/github-sync/README.md)
