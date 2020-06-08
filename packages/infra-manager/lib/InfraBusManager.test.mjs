@@ -23,3 +23,22 @@ test('created bus manager delegate', async t => {
   t.truthy(manager)
 })
 
+test('subscribes events to bus', async t => {
+  const bus = new StubBus()
+  const original = new StubManager()
+
+  const subscribe = bus.stubs.subscribe;
+  const events = original.stubs.events.returns({
+    'someMessage': ()=> {}
+  });
+
+  const manager = new InfraBusManager(
+    original,
+    bus
+  )
+
+  await manager.startup()
+
+  t.is(subscribe.called, true)
+})
+

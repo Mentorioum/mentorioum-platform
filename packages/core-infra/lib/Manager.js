@@ -13,7 +13,7 @@ export class Manager  extends Lifecycle {
 
   /**
    * Declares events
-   * @returns {Lifecycle}
+   * @returns {Object}
    */
 
 

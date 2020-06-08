@@ -35,14 +35,20 @@ export class InfraBusManager extends Manager  {
   }
 
   get name() {
-    return super.name;
+    return this.#original.name;
   }
 
-  async startup(any) {
-    super.startup(any);
+  async startup(...args) {
+
+    // TODO: #15 - iterate over events
+
+    this.#bus.subscribe('test', () => {})
+
+    return this;
   }
 
   async shutdown(any) {
-    super.shutdown(any);
+    // TODO: #15 - provide unsubscription
+    return this;
   }
 }

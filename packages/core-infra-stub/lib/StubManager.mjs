@@ -1,36 +1,32 @@
 import {Manager} from "@mentorioum/core-infra";
-import sinon from "sinon";
-import {StubLifecycle} from "./StubLifecyce";
+import {SinonManagerStubs} from "./SinonManagerStubs";
 
 export class StubManager extends Manager {
+  #stubs = null
 
-  #events = null
-  #lifecycle = null
-
-  constructor(stubs = {}) {
+  constructor() {
     super();
 
-    this.#lifecycle = new StubLifecycle(stubs);
-
-    this.#events = stubs.events || sinon.stub()
+    this.#stubs = new SinonManagerStubs();
   }
 
   get stubs () {
-    return {
-      ...this.#lifecycle.stubs,
-      events: this.#events
-    }
+    return this.#stubs
+  }
+
+  get name() {
+    return this.#stubs.name();
   }
 
   get events() {
-    return this.#events;
+    return this.#stubs.events();
   }
 
   async startup(...args) {
-    return this.#lifecycle.startup.apply(this,args)
+    return this.#stubs.startup.apply(this,args)
   }
 
   async shutdown(...args) {
-    return this.#lifecycle.shutdown.apply(this,args)
+    return this.#stubs.shutdown.apply(this,args)
   }
 }
