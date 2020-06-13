@@ -10,18 +10,24 @@ export class Bus {
   constructor() {
     this.publish = this.publish.bind(this)
     this.subscribe = this.subscribe.bind(this)
-    this.unsubscribe = this.unsubscribe.bind(this)
   }
 
-  async publish(message, callback) {
+  /**
+   * @param {String} event - uniq event name
+   * @param {*} message
+   * @return {Promise<void>}
+   */
+  async publish(event, message) {
     throw new NotYetImplementedError()
   }
 
-  async subscribe(messages, callback){
-    throw new NotYetImplementedError()
-  }
-
-  async unsubscribe(subscription){
+  /**
+   *
+   * @param {String} event - uniq event name
+   * @param {Function} callback
+   * @return {Promise<Subscription>}
+   */
+  async subscribe(event, callback){
     throw new NotYetImplementedError()
   }
 }

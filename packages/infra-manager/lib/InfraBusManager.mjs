@@ -45,19 +45,22 @@ export class InfraBusManager extends Manager  {
   }
 
   async startup(...args) {
-
-    // TODO: #15 - iterate over events
-
-    this.#subscriptions = _.map(this.events, (value, key) => {
+    this.#subscriptions = await Promise.all(_.map(this.events, (value, key) => {
       return this.#bus.subscribe(key, value)
-    })
+    }))
 
     return this;
   }
 
   async shutdown(any) {
+    if (_.isEmpty(this.#subscriptions)){
+      return this;
+    }
 
-    // TODO: #15 - provide unsubscription
+    for (let subscription of this.#subscriptions) {
+      subscription.detach()
+    }
+
     return this;
   }
 }

@@ -21,8 +21,4 @@ export class StubBus extends Bus {
   async subscribe(...args) {
     return this.#stubs.subscribe.apply(this, args);
   }
-
-  async unsubscribe(...args) {
-    return this.#stubs.unsubscribe.apply(this, args);
-  }
 }
