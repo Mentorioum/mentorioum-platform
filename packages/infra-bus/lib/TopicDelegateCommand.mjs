@@ -32,7 +32,7 @@ export class TopicDelegateCommand extends Command {
     assert(logger, 'Should have logger')
 
     this.#original = original
-    this.#log = logger
+    this.#log = logger.child({module: this.constructor.name})
   }
 
   async execute(topic) {

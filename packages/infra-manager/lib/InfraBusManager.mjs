@@ -21,19 +21,27 @@ export class InfraBusManager extends Manager  {
   #subscriptions = []
 
   /**
+   * @type {Log}
+   */
+  #log = null
+
+  /**
    * @constructor
    * @param {Manager} original
    * @param {Bus} bus
+   * @param {Log} log
    */
 
-  constructor(original, bus) {
+  constructor(original, bus, log) {
     super();
 
     assert(original, 'Should have an original manager')
     assert(bus, 'Should have a bus')
+    assert(log, 'Should have a logger')
 
     this.#bus = bus
     this.#original = original
+    this.#log = log.child({module: this.constructor.name})
   }
 
   get events() {
@@ -45,17 +53,22 @@ export class InfraBusManager extends Manager  {
   }
 
   async startup(...args) {
-
-    console.log({events : this.events})
+    let log = this.#log;
+    log.info('Starting subscriptions')
 
     this.#subscriptions = await Promise.all(_.map(this.events, (value, key) => {
       return this.#bus.subscribe(key, value)
     }))
 
+    log.info('Started')
     return this;
   }
 
   async shutdown(any) {
+    let log = this.#log;
+    log.info('Shutting down')
+
+
     if (_.isEmpty(this.#subscriptions)){
       return this;
     }
@@ -64,6 +77,8 @@ export class InfraBusManager extends Manager  {
       subscription.detach()
     }
 
+
+    log.info('Shutdown successfully')
     return this;
   }
 }

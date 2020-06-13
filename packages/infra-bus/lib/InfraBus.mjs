@@ -32,7 +32,7 @@ export class InfraBus extends Bus {
     assert(baseUrl)
     assert(asyncResponseTimeout)
 
-    this.#log = logger.child({module: 'infra-bus'})
+    this.#log = logger.child({module: this.constructor.name})
 
     let customLogger = loggerMiddleware(this.#log);
 

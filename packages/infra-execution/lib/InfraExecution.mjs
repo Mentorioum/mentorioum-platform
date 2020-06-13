@@ -28,7 +28,11 @@ export class InfraExecution extends LifecycleExecution {
      */
     let manager = createLifecycle(context, config)
 
-    manager = new InfraBusManager(manager, context.bus)
+    manager = new InfraBusManager(
+      manager,
+      context.bus,
+      context.logger
+    )
 
     super(manager);
 

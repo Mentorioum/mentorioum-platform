@@ -1,9 +1,10 @@
 import test from '@mentorioum/support-test'
 import {InfraBusManager} from "./InfraBusManager";
 import {AssertionError} from "assert";
-import {StubBus, StubCommand, StubManager, StubSubscription} from "@mentorioum/core-infra-stub";
+import {StubBus, StubCommand, StubManager, StubSubscription, StubLogger} from "@mentorioum/core-infra-stub";
 
 test.beforeEach(t => {
+  const log = new StubLogger()
   const bus = new StubBus()
   const original = new StubManager()
   const firstCommand = new StubCommand()
@@ -23,7 +24,8 @@ test.beforeEach(t => {
     firstEvent,
     firstCommand,
     secondCommand,
-    secondEvent
+    secondEvent,
+    log
   }
 })
 
@@ -41,18 +43,26 @@ test('created bus manager delegate', async t => {
 
   const manager = new InfraBusManager(
     new StubManager(),
-    new StubBus()
+    new StubBus(),
+
+    /**
+     * @todo #15:35m/DEV - find a solution for logger by default
+     *
+     *
+     */
+    new StubLogger()
   )
 
   t.truthy(manager)
 })
 
 test('subscribes to events on startup', async t => {
-  const {bus, original, firstEvent, secondEvent, firstCommand, secondCommand} = t.context;
+  const {bus, original, firstEvent, secondEvent, firstCommand, secondCommand, log} = t.context;
 
   const manager = new InfraBusManager(
     original,
-    bus
+    bus,
+    log
   )
 
   await manager.startup()
@@ -65,7 +75,7 @@ test('subscribes to events on startup', async t => {
 })
 
 test('unsubscribes events on shutdown', async t => {
-  const {bus, original, firstEvent, secondEvent, firstCommand, secondCommand} = t.context;
+  const {bus, original, firstEvent, secondEvent, firstCommand, secondCommand, log} = t.context;
   const firstSubscription = new StubSubscription()
   const secondSubscription = new StubSubscription()
 
@@ -74,7 +84,8 @@ test('unsubscribes events on shutdown', async t => {
 
   const manager = new InfraBusManager(
     original,
-    bus
+    bus,
+    log
   )
 
   await manager.startup()
