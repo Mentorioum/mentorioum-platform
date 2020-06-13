@@ -1,5 +1,5 @@
 import {Manager} from "@mentorioum/core-infra";
-import {SinonManagerStubs} from "./SinonManagerStubs";
+import {SinonManagerStubs} from "./stubs/SinonManagerStubs";
 
 export class StubManager extends Manager {
   #stubs = null

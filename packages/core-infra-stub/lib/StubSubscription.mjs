@@ -1,5 +1,5 @@
 import {Subscription} from "@mentorioum/core-infra";
-import {SinonSubscriptionStubs} from "./SinonSubscriptionStubs";
+import {SinonSubscriptionStubs} from "./stubs/SinonSubscriptionStubs";
 
 export class StubSubscription extends Subscription {
 

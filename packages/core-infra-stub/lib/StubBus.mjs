@@ -1,5 +1,5 @@
 import {Bus} from "@mentorioum/core-infra";
-import {SinonBusStubs} from "./SinonBusStubs";
+import {SinonBusStubs} from "./stubs/SinonBusStubs";
 
 export class StubBus extends Bus {
   #stubs = null

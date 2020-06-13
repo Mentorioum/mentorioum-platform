@@ -45,6 +45,9 @@ export class InfraBusManager extends Manager  {
   }
 
   async startup(...args) {
+
+    console.log({events : this.events})
+
     this.#subscriptions = await Promise.all(_.map(this.events, (value, key) => {
       return this.#bus.subscribe(key, value)
     }))

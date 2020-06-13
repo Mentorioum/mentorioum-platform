@@ -3,6 +3,7 @@ import {Bus} from "@mentorioum/core-infra"
 import assert from "assert";
 import {TopicDelegateCommand} from "./TopicDelegateCommand";
 import {loggerMiddleware} from "./loggerMiddleware";
+import {TopicSubscription} from "./TopicSubscription";
 
 const { Client } = ExternalTask;
 
@@ -42,15 +43,19 @@ export class InfraBus extends Bus {
     });
   }
 
-  async subscribe(messages, command) {
+  async subscribe(event, command) {
     /**
      * @todo #1:45m/DEV Add separation by message pattern, like router url
      *  leave a wat to use topic original API + expose Variables
      */
 
+    this.#log.info('Start Subscription')
+
     const delegate = new TopicDelegateCommand(command, this.#log)
-    return this.#client.subscribe(messages, async topic => {
+    let subscription = this.#client.subscribe(event, async topic => {
       await delegate.execute(topic)
     });
+
+    return new TopicSubscription(event, subscription);
   }
 }

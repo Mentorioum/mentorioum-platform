@@ -1,5 +1,5 @@
 import {Lifecycle} from "@mentorioum/core-infra";
-import {SinonLifecycleStubs} from "./SinonLifecycleStubs";
+import {SinonLifecycleStubs} from "./stubs/SinonLifecycleStubs";
 
 export class StubLifecycle extends Lifecycle {
   #stubs = null

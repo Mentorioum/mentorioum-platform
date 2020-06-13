@@ -1,2 +1,2 @@
 export * from './notification'
-export * from './GithubSyncLifecycle'
+export * from './GithubSyncManager'

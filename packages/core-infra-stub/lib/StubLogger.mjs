@@ -1,5 +1,5 @@
 import {Logger} from "@mentorioum/core-infra";
-import {SinonLoggerStubs} from "./SinonLoggerStubs";
+import {SinonLoggerStubs} from "./stubs/SinonLoggerStubs";
 
 export class StubLogger extends Logger {
 

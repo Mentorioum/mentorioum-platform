@@ -1,5 +1,5 @@
 import {Command} from "@mentorioum/core-infra";
-import {SinonCommandStubs} from "./SinonCommandStubs";
+import {SinonCommandStubs} from "./stubs/SinonCommandStubs";
 
 export class StubCommand extends Command {
 
