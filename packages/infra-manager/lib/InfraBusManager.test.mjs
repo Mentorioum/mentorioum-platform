@@ -1,7 +1,17 @@
 import test from '@mentorioum/support-test'
 import {InfraBusManager} from "./InfraBusManager";
 import {AssertionError} from "assert";
-import {StubBus, StubManager} from "@mentorioum/core-infra-stub";
+import {StubBus, StubCommand, StubManager} from "@mentorioum/core-infra-stub";
+
+
+test.beforeEach(t => {
+  t.context.bus = new StubBus()
+  t.context.original = new StubManager()
+  t.context.firstCommand = new StubCommand()
+  t.context.secondCommand = new StubCommand()
+  t.context.firstEvent = 'someMessage1'
+  t.context.secondEvent = 'someMessage2'
+})
 
 test('created bus manager delegate', async t => {
 
@@ -24,12 +34,11 @@ test('created bus manager delegate', async t => {
 })
 
 test('subscribes events to bus', async t => {
-  const bus = new StubBus()
-  const original = new StubManager()
+  const {bus, original, firstEvent, secondEvent, firstCommand, secondCommand} = t.context;
 
-  const subscribe = bus.stubs.subscribe;
-  const events = original.stubs.events.returns({
-    'someMessage': ()=> {}
+  original.stubs.events.returns({
+    [firstEvent]: firstCommand,
+    [secondEvent]: secondCommand
   });
 
   const manager = new InfraBusManager(
@@ -39,6 +48,10 @@ test('subscribes events to bus', async t => {
 
   await manager.startup()
 
-  t.is(subscribe.called, true)
+  t.is(bus.stubs.subscribe.callCount, 2)
+  t.is(bus.stubs.subscribe.getCall(0).args[0], firstEvent)
+  t.is(bus.stubs.subscribe.getCall(0).args[1], firstCommand)
+  t.is(bus.stubs.subscribe.getCall(1).args[0], secondEvent)
+  t.is(bus.stubs.subscribe.getCall(1).args[1], secondCommand)
 })
 

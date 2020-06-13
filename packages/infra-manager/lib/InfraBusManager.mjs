@@ -1,5 +1,6 @@
 import {Manager} from "@mentorioum/core-infra";
 import assert from "assert";
+import _ from 'lodash'
 
 export class InfraBusManager extends Manager  {
 
@@ -13,6 +14,11 @@ export class InfraBusManager extends Manager  {
    * @type {Manager}
    */
   #original = null
+
+  /**
+   * @type {Object[]}
+   */
+  #subscriptions = []
 
   /**
    * @constructor
@@ -42,12 +48,15 @@ export class InfraBusManager extends Manager  {
 
     // TODO: #15 - iterate over events
 
-    this.#bus.subscribe('test', () => {})
+    this.#subscriptions = _.map(this.events, (value, key) => {
+      return this.#bus.subscribe(key, value)
+    })
 
     return this;
   }
 
   async shutdown(any) {
+
     // TODO: #15 - provide unsubscription
     return this;
   }

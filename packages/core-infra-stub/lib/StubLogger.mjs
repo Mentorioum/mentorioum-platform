@@ -37,4 +37,9 @@ export class StubLogger extends Logger {
   error(...args) {
     return this.#stubs.error.apply(this, args);
   }
+
+  child(...args) {
+    this.#stubs.child.apply(this, args);
+    return new StubLogger();
+  }
 }

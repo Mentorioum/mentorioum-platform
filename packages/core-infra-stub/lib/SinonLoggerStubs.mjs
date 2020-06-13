@@ -8,6 +8,7 @@ export class SinonLoggerStubs {
   #debug = null
   #warn = null
   #error = null
+  #child = null
 
   constructor() {
     this.#trace = sinon.stub()
@@ -16,6 +17,7 @@ export class SinonLoggerStubs {
     this.#debug =  sinon.stub()
     this.#warn = sinon.stub()
     this.#error =  sinon.stub()
+    this.#child =  sinon.stub()
   }
 
   get trace() {
@@ -40,5 +42,9 @@ export class SinonLoggerStubs {
 
   get error() {
     return this.#error;
+  }
+
+  get child() {
+    return this.#child;
   }
 }
