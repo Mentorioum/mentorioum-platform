@@ -1,0 +1,16 @@
+{
+  "name": "@mentorioum/infra-manager",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.mjs",
+  "devDependencies": {
+    "@mentorioum/support-test": "1.0.0"
+  },
+  "scripts": {
+    "test": "support-test-runner",
+    "test:watch": "support-test-runner --watch",
+    "test:coverage": "support-test-runner --coverage",
+    "clean": "yarn run clean:node-modules",
+    "clean:node-modules": "rimraf node_modules"
+  }
+}

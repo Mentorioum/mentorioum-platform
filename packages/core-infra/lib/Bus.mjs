@@ -12,11 +12,22 @@ export class Bus {
     this.subscribe = this.subscribe.bind(this)
   }
 
-  async publish(message, callback) {
+  /**
+   * @param {String} event - uniq event name
+   * @param {*} message
+   * @return {Promise<void>}
+   */
+  async publish(event, message) {
     throw new NotYetImplementedError()
   }
 
-  async subscribe(messages, callback){
+  /**
+   *
+   * @param {String} event - uniq event name
+   * @param {Function} callback
+   * @return {Promise<Subscription>}
+   */
+  async subscribe(event, callback){
     throw new NotYetImplementedError()
   }
 }

@@ -6,6 +6,11 @@ import {NotYetImplementedError} from "@mentorioum/core-error";
 
 export class Lifecycle {
 
+  constructor() {
+    this.startup = this.startup.bind(this)
+    this.shutdown = this.shutdown.bind(this)
+  }
+
   /**
    * Lifecycle uniq name
    * @returns {String}

@@ -1,58 +1,45 @@
 import {Logger} from "@mentorioum/core-infra";
-import sinon from 'sinon'
+import {SinonLoggerStubs} from "./stubs/SinonLoggerStubs";
 
 export class StubLogger extends Logger {
 
-  #trace = null
-  #info = null
-  #fatal = null
-  #debug = null
-  #warn = null
-  #error = null
-
-  constructor(stubs = {}) {
+  #stubs = null
+  constructor() {
     super();
 
-    this.#trace = stubs.trace || sinon.stub()
-    this.#info = stubs.info || sinon.stub()
-    this.#fatal = stubs.fatal || sinon.stub()
-    this.#debug = stubs.debug || sinon.stub()
-    this.#warn = stubs.warn || sinon.stub()
-    this.#error = stubs.error || sinon.stub()
+    this.#stubs = new SinonLoggerStubs()
   }
 
   get stubs () {
-    return {
-      trace :this.#trace,
-      info :this.#info,
-      fatal :this.#fatal,
-      debug: this.#debug,
-      warn: this.#warn,
-      error: this.#error
-    }
+    return this.#stubs
   }
 
-  trace(payload) {
-    return this.#trace(payload);
+  trace(...args) {
+    return this.#stubs.trace.apply(this, args);
   }
 
-  info(payload) {
-    return this.#info(payload);
+  info(...args) {
+    return this.#stubs.info.apply(this, args);
   }
 
-  fatal(payload) {
-    return this.#fatal(payload);
+  fatal(...args) {
+    return this.#stubs.fatal.apply(this, args);
   }
 
-  debug(payload) {
-    return this.#debug(payload);
+  debug(...args) {
+    return this.#stubs.debug.apply(this, args);
   }
 
-  warn(payload) {
-    return this.#warn(payload);
+  warn(...args) {
+    return this.#stubs.warn.apply(this, args);
   }
 
-  error(paylod) {
-    return this.#error(paylod);
+  error(...args) {
+    return this.#stubs.error.apply(this, args);
+  }
+
+  child(...args) {
+    this.#stubs.child.apply(this, args);
+    return new StubLogger();
   }
 }

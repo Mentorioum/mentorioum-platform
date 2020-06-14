@@ -1,5 +1,4 @@
 import test from '@mentorioum/support-test'
-import {GithubSyncLifecycle} from "./GithubSyncLifecycle";
 
 test('startup', async t => {
   /**
