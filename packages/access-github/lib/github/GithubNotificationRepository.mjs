@@ -1,5 +1,5 @@
 import assert from "assert";
-import {NotificationRepository} from "./core/NotificationRepository";
+import {NotificationRepository} from "../core/NotificationRepository";
 
 export class GithubNotificationRepository extends NotificationRepository {
 
@@ -28,8 +28,8 @@ export class GithubNotificationRepository extends NotificationRepository {
   toJSON() {
     return {
       id: this.id,
-      reason: this.name,
-      subject: this.fullName
+      name: this.name,
+      fullName: this.fullName
     }
   }
 

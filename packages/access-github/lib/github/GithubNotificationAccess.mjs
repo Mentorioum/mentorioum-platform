@@ -1,4 +1,4 @@
-import {NotificationAccess} from "./core/NotificationAccess";
+import {NotificationAccess} from "../core/NotificationAccess";
 import Octokit from '@octokit/rest'
 import {GithubNotification} from './GithubNotification';
 
