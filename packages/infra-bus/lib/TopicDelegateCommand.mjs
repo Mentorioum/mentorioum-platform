@@ -73,7 +73,7 @@ export class TopicDelegateCommand extends Command {
         }, 'failed to commit execution results')
       }
 
-      this.#log.info({
+      this.#log.debug({
         task: logOutput,
         variables: {
           input: options,

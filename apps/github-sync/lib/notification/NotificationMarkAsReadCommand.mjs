@@ -1,4 +1,5 @@
 import {Command} from "@mentorioum/core-infra";
+import assert from "assert";
 
 export class NotificationMarkAsReadCommand extends Command {
 
@@ -7,6 +8,9 @@ export class NotificationMarkAsReadCommand extends Command {
 
   constructor(notifications, logger) {
     super()
+    assert(notifications, 'should have notifications')
+    assert(logger, 'should have logger')
+
     this.#log = logger.child({module: this.constructor.name})
     this.#notifications = notifications
   }
