@@ -3,21 +3,20 @@ import {Command} from "@mentorioum/core-infra";
 export class NotificationMarkAsReadCommand extends Command {
 
   #log = null
+  #notifications = null
 
-  constructor(logger) {
+  constructor(notifications, logger) {
     super()
-    this.#log = logger
+    this.#log = logger.child({module: this.constructor.name})
+    this.#notifications = notifications
   }
 
   async execute(options) {
     let { notification } = options;
 
-    /**
-     * @todo #11:55m/DEV Integrate with mark as read
-     *
-     */
+    await this.#notifications.markAsRead(notification.id)
 
-    this.#log.info({notification}, ' Marked as Read!')
+    this.#log.info(`Marked notification #id: ${notification.id} as read`)
   }
 
 }

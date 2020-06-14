@@ -19,7 +19,7 @@ export class StubNotificationAccess extends NotificationAccess {
     return this.#stubs.findMany.apply(this, args)
   }
 
-  async markAsRead(id) {
+  async markAsRead(...args) {
     return this.#stubs.markAsRead.apply(this, args)
   }
 }

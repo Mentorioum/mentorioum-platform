@@ -1,1 +1,3 @@
-export * from './github/index'
+export * from './core'
+export * from './github'
+export * from './stub'
