@@ -18,7 +18,7 @@ export class InfraContext extends Context {
 
     /**
      * @todo #12:1h/DEV - Pass env configs
-     *   add at least level configuration
+     *  add at least level configuration
      *
      */
     this.#logger = new InfraLogger()
