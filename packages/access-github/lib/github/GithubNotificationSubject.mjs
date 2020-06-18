@@ -1,4 +1,4 @@
-import {NotificationSubject} from './core'
+import {NotificationSubject} from '../core'
 import assert from "assert";
 
 export class GithubNotificationSubject extends NotificationSubject {

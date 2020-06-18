@@ -15,6 +15,12 @@ export class InfraContext extends Context {
   constructor(workflow) {
     super()
 
+
+    /**
+     * @todo #12:1h/DEV - Pass env configs
+     *   add at least level configuration
+     *
+     */
     this.#logger = new InfraLogger()
     this.#bus = new InfraBus({
         baseUrl: workflow.baseUrl,

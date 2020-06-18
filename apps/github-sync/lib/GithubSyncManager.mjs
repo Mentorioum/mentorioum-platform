@@ -35,15 +35,17 @@ export class GithubSyncManager extends Manager {
   }
 
   get events() {
-    const sayHello = new GithubSayHelloCommand(this.#log)
+    const log = this.#log;
+    const notifications = this.#notifications;
+    const sayHello = new GithubSayHelloCommand(log)
 
     return {
-      'services://github-sync/generate-list' : new NotificationFetchNewCommand(this.#notifications),
+      'services://github-sync/generate-list' : new NotificationFetchNewCommand(notifications),
       'services://utils/logger': sayHello,
-      'services://github-sync/pick-one': new NotificationPickOneCommand(this.#log),
+      'services://github-sync/pick-one': new NotificationPickOneCommand(log),
       'services://github-sync/greeting': sayHello,
-      'services://github-sync/mark-as-read': new NotificationMarkAsReadCommand(this.#log),
-      'services://github-sync/analyze-instructions': new NotificationAnalyzeInstructionCommand(this.#log)
+      'services://github-sync/mark-as-read': new NotificationMarkAsReadCommand(notifications, log),
+      'services://github-sync/analyze-instructions': new NotificationAnalyzeInstructionCommand(log)
     }
   }
 }

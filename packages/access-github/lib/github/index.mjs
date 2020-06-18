@@ -1,5 +1,5 @@
-export * from './core'
 export * from './GithubNotificationSubject'
 export * from './GithubNotification'
 export * from './GithubNotificationRepository'
 export * from './GithubNotificationAccess'
+export * from './fixtures'
