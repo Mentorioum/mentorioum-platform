@@ -1,5 +1,5 @@
 import assert from "assert";
-import {NotificationRepository} from "../core/NotificationRepository";
+import {NotificationRepository} from "../..";
 
 export class GithubNotificationRepository extends NotificationRepository {
 

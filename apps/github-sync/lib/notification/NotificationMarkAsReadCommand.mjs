@@ -18,6 +18,14 @@ export class NotificationMarkAsReadCommand extends Command {
   async execute(options) {
     let { notification } = options;
 
+    if (!notification) {
+
+      /**
+       * @todo #12:60m/DEV - Provide input validation for command
+       *  add module which extends core command with input validation
+       */
+      return;
+    }
     await this.#notifications.markAsRead(notification.id)
 
     this.#log.info(`Marked notification #id: ${notification.id} as read`)

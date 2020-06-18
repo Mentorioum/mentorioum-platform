@@ -85,5 +85,4 @@ export const githubNotificationFixtures = {
     }
   }
 
-
 }

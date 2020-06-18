@@ -1,4 +1,4 @@
-import {Notification} from '../core/Notification'
+import {Notification} from '../..'
 import assert from "assert";
 import {GithubNotificationSubject} from "./GithubNotificationSubject";
 import {GithubNotificationRepository} from "./GithubNotificationRepository";
